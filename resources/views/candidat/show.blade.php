@@ -1,3 +1,4 @@
-<div>
-    <!-- Simplicity is the consequence of refined emotions. - Jean D'Alembert -->
-</div>
+N°{{$candidat->id}} | {{$candidat->fullname}} <br>
+
+
+<a href="{{Route('candidat.index')}}">Candidat</a>

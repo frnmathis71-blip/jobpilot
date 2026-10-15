@@ -23,7 +23,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('company.create');
     }
 
     /**
@@ -31,7 +31,15 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+
+        Company::create($validated);
+
+        return redirect()
+            ->route('company.index')
+            ->with('succes', 'Entreprise ajoutée avec succès');
     }
 
     /**
@@ -39,7 +47,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        return view('company.show', compact('company'));
     }
 
     /**
@@ -47,7 +55,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        //
+        return view('company.edit', compact('company'));   
     }
 
     /**
@@ -55,7 +63,15 @@ class CompanyController extends Controller
      */
     public function update(UpdateCompanyRequest $request, Company $company)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $company->update($validated);
+
+        return redirect()
+            ->route('company.index')
+            ->with('succes', 'Entreprise ajoutée avec succès');
     }
 
     /**
@@ -63,6 +79,10 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        
+        return redirect()
+            ->route('company.index')
+            ->with('succes', 'Entreprise supprimée avec succès');
     }
 }

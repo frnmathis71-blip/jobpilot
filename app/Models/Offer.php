@@ -13,6 +13,13 @@ class Offer extends Model
 
     public function company()
     {
-        return $this->belongsTo('Company:::class');
+        return $this->belongsTo(Company::class);
     }
+
+    protected $fillable = [
+        'Name',
+        'Salary',
+        'company_id',
+        'Description',
+    ];
 }

@@ -30,7 +30,15 @@ class CandidatController extends Controller
      */
     public function store(StoreCandidatRequest $request)
     {
-        //
+        $validated = $request->validate([
+            'fullname' => 'required',
+        ]);
+
+        Candidat::create($validated);
+
+        return redirect()
+            ->route('candidat.index')
+            ->with('succes', 'Candidat ajoutée avec succès.');
     }
 
     /**
@@ -46,7 +54,7 @@ class CandidatController extends Controller
      */
     public function edit(Candidat $candidat)
     {
-        //
+        return view('candidat.edit', compact('candidat'));
     }
 
     /**
@@ -54,7 +62,15 @@ class CandidatController extends Controller
      */
     public function update(UpdateCandidatRequest $request, Candidat $candidat)
     {
-        //
+        $validated = $request->validate([
+            'fullname' => 'required',
+        ]);
+
+        $candidat->update($validated);
+
+        return redirect()
+            ->route('candidat.index')
+            ->with('succes', 'Candidat modifiée avec succès.');
     }
 
     /**

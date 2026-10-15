@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Offer;
+use App\Models\Company;
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
 
@@ -22,7 +23,8 @@ class OfferController extends Controller
      */
     public function create()
     {
-        //
+        $companies = Company::all();
+        return view('offer.create', compact('companies'));
     }
 
     /**
@@ -30,7 +32,18 @@ class OfferController extends Controller
      */
     public function store(StoreOfferRequest $request)
     {
-        //
+        $validated=$request->validate([
+            'company_id'=>'required',
+            'Salary'=>'required',
+            'Name'=>'required',
+            'Description'=>'required',
+        ]);
+
+        Offer::create($validated);
+
+        return redirect()
+            ->route('offer.index')
+            ->with('succes', 'Offre ajoutée avec succès');
     }
 
     /**
@@ -38,7 +51,7 @@ class OfferController extends Controller
      */
     public function show(Offer $offer)
     {
-        //
+        return view('offer.show', compact('offer'));
     }
 
     /**
@@ -46,7 +59,8 @@ class OfferController extends Controller
      */
     public function edit(Offer $offer)
     {
-        //
+        $companies = Company::all();
+        return view('offer.edit', compact('companies', 'offer'));
     }
 
     /**
@@ -54,7 +68,18 @@ class OfferController extends Controller
      */
     public function update(UpdateOfferRequest $request, Offer $offer)
     {
-        //
+        $validated=$request->validate([
+            'company_id'=>'required',
+            'Salary'=>'required',
+            'Name'=>'required',
+            'Description'=>'required',
+        ]);
+
+        $offer->update($validated);
+
+        return redirect()
+            ->route('offer.index')
+            ->with('succes', 'Offre ajoutée avec succès');
     }
 
     /**
@@ -62,6 +87,9 @@ class OfferController extends Controller
      */
     public function destroy(Offer $offer)
     {
-        //
+        $offer->delete();
+        return redirect()
+            ->route('offer.index')
+            ->with('succes', 'Offre supprimée avec succès');
     }
 }

@@ -15,4 +15,9 @@ class Candidat extends Model
     {
         return $this->hasMany(Offer::class);
     }
+
+
+    protected $fillable =  [
+        'fullname',
+    ];
 }
