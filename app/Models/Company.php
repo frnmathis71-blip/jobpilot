@@ -13,7 +13,7 @@ class Company extends Model
 
     public function offers()
     {
-        return $this->hasMany(Offer::class);
+        return $this->hasMany(Offer::class, 'company_id');
     }
 
     protected $fillable =  [
