@@ -7,17 +7,44 @@
 
         <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
             @csrf
-            <!-- Name -->
-            <flux:input
-                name="name"
-                :label="__('Name')"
-                :value="old('name')"
-                type="text"
-                required
-                autofocus
-                autocomplete="name"
-                :placeholder="__('Full name')"
-            />
+
+
+            <div
+                x-data="{
+                    role: @js(old('role', 'candidat')),
+                    nameLabel: @js(__('Name')),
+                    companyLabel: @js(__('Company\'s name')),
+                    namePlaceholder: @js(__('Full name')),
+                }"
+                class="flex flex-col gap-6"
+            >
+
+                <!-- Role Choice -->
+                <flux:radio.group name="role" :label="__('Role')" required x-model="role">
+                    <flux:radio value="candidat" :label="__('Candidat')" />
+                    <flux:radio value="company" :label="__('Company')" />
+                </flux:radio.group>
+
+                <!-- Name -->
+                <flux:field>
+                    <flux:label x-text="role === 'company' ? companyLabel : nameLabel">
+                        {{ __('Name') }}
+                    </flux:label>
+
+                    <flux:input
+                        name="name"
+                        :value="old('name')"
+                        type="text"
+                        required
+                        autofocus
+                        autocomplete="name"
+                        x-bind:placeholder="role === 'company' ? companyLabel : namePlaceholder"
+                    />
+
+                    <flux:error name="name" />
+                </flux:field>
+
+            </div>
 
             <!-- Email Address -->
             <flux:input
@@ -29,6 +56,9 @@
                 autocomplete="email"
                 placeholder="email@example.com"
             />
+
+            
+
 
             <!-- Password -->
             <flux:input

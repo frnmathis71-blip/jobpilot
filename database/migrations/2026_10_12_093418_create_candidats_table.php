@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('candidats', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('fullname');
             $table->foreignId('offer_id')->nullable()->constrained('offers');
         });
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\OfferController;
 
 Route::view('/', 'welcome')->name('home');
+Route::view('/dashboard', 'dashboard')->name('dashboard');
 
 // Consultation : candidat et administrateur
 Route::middleware(['auth'])->group(function () {
