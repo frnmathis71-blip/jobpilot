@@ -1,3 +1,4 @@
+<x-layouts::jobpilot title="Candidatures">
 {{-- Candidatures reçues sur les offres de l'entreprise connectée --}}
 <h1>Candidatures reçues</h1>
 
@@ -26,3 +27,4 @@
         padding:5px;
     }
 </style>
+</x-layouts::jobpilot>

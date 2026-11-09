@@ -1,3 +1,4 @@
+<x-layouts::jobpilot title="Détail de l'offre" heading="Détail de l'offre">
 {{-- ======================================== --}}
 {{-- PARTIE CANDIDAT --}}
 {{-- ======================================== --}}
@@ -6,3 +7,4 @@
     Salaire : {{$offer->Salary}} <br>
     Description : {{$offer->Description}} <br>
 @endif
+</x-layouts::jobpilot>

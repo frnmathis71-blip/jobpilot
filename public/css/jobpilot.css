@@ -1,0 +1,342 @@
+/* =========================================================
+   JobPilot : feuille de style des pages métier
+   Sobre et professionnelle. Une couleur d'accent par rôle.
+   ========================================================= */
+
+/* ---------- Couleurs et variables ---------- */
+:root {
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --danger: #b91c1c;
+    --danger-bg: #fef2f2;
+    --radius: 8px;
+
+    /* Accent par défaut (visiteur) */
+    --accent: #334155;
+    --accent-hover: #1e293b;
+    --accent-soft: #f1f5f9;
+}
+
+/* Candidat : bleu */
+.role-candidat {
+    --accent: #1d4ed8;
+    --accent-hover: #1e40af;
+    --accent-soft: #eff6ff;
+}
+
+/* Entreprise : vert sapin */
+.role-company {
+    --accent: #0f766e;
+    --accent-hover: #115e59;
+    --accent-soft: #f0fdfa;
+}
+
+/* Administrateur : ardoise */
+.role-admin {
+    --accent: #3f3f46;
+    --accent-hover: #27272a;
+    --accent-soft: #f4f4f5;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body.jp {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.jp-container {
+    width: 100%;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.jp h1 {
+    margin: 0 0 24px;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.jp a {
+    color: var(--accent);
+}
+
+/* ---------- En-tête ---------- */
+.jp-header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    border-top: 3px solid var(--accent);
+}
+
+.jp-header-inner {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    min-height: 60px;
+}
+
+.jp-brand {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text) !important;
+    text-decoration: none;
+}
+
+.jp-space {
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.jp-nav {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.jp-nav a {
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.jp-nav a:hover {
+    color: var(--text);
+    background: var(--bg);
+}
+
+.jp-nav a.active {
+    color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.jp-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.jp-user form {
+    margin: 0;
+}
+
+.jp .jp-logout {
+    padding: 6px 12px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+}
+
+.jp .jp-logout:hover {
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* ---------- Contenu ---------- */
+.jp-main {
+    flex: 1;
+    padding-top: 32px;
+    padding-bottom: 48px;
+}
+
+/* Cartes : chaque <section> des vues (offre, entreprise, candidat...) */
+.jp-main section {
+    margin: 0 0 16px;
+    padding: 20px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius);
+}
+
+.jp-main section strong {
+    font-size: 16px;
+}
+
+/* Liens d'action dans une carte : Voir, Modifier, Postuler */
+.jp-main section a {
+    display: inline-block;
+    margin: 12px 8px 0 0;
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.jp-main section a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* Formulaire de suppression placé dans une carte */
+.jp-main section form {
+    display: inline-block;
+    margin: 12px 8px 0 0;
+    padding: 0;
+    background: none;
+    border: 0;
+}
+
+.jp-main section form button {
+    padding: 6px 14px;
+    background: var(--surface);
+    color: var(--danger);
+    border: 1px solid var(--border);
+    font-size: 14px;
+}
+
+.jp-main section form button:hover {
+    background: var(--danger-bg);
+    border-color: var(--danger);
+}
+
+/* Liens isolés sous une liste : « Ajouter une offre », « Retour » */
+.jp-main > a {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 8px 18px;
+    border-radius: 6px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.jp-main > a:hover {
+    background: var(--accent-hover);
+}
+
+/* Messages : « Bienvenue... », « Candidature envoyée », « Aucune offre » */
+.jp-main > p {
+    margin: 0 0 20px;
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 500;
+}
+
+/* ---------- Formulaires ---------- */
+.jp-main > form {
+    max-width: 560px;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+.jp-main > form br {
+    display: none;
+}
+
+.jp label {
+    display: block;
+    margin: 16px 0 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.jp-main > form label:first-of-type {
+    margin-top: 0;
+}
+
+.jp input[type="text"],
+.jp input[type="number"],
+.jp input[type="email"],
+.jp select,
+.jp textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+}
+
+.jp input:focus,
+.jp select:focus,
+.jp textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* ---------- Boutons ---------- */
+.jp button {
+    padding: 9px 20px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: var(--accent);
+    color: #fff;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.jp button:hover {
+    background: var(--accent-hover);
+}
+
+.jp-main > form button[type="submit"] {
+    margin-top: 20px;
+}
+
+/* ---------- Pied de page ---------- */
+.jp-footer {
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 640px) {
+    .jp-header-inner {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .jp-user {
+        margin-left: 0;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .jp-main section {
+        padding: 16px;
+    }
+}

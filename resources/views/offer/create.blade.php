@@ -1,3 +1,4 @@
+<x-layouts::jobpilot title="Nouvelle offre" heading="Nouvelle offre">
 <form action="{{route('offer.store')}}" method="POST">
     @csrf 
 
@@ -14,3 +15,4 @@
     <label>Description</label> <input type="text" name="Description"> <br>
     <button type="submit">Ajouter</button>
 </form>
+</x-layouts::jobpilot>

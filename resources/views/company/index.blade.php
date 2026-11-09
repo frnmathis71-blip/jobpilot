@@ -1,3 +1,4 @@
+<x-layouts::jobpilot title="Entreprises" heading="Entreprises">
 @foreach($companies as $company)
 <section>
     {{$company->name}} <br>
@@ -26,3 +27,4 @@
         padding:5px;
     }
 </style>
+</x-layouts::jobpilot>

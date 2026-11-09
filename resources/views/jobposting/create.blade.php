@@ -1,3 +1,4 @@
+<x-layouts::jobpilot title="Postuler">
 {{-- Récapitulatif de l'offre --}}
 <h1>Postuler à l'offre N°{{$offer->id}}</h1>
 
@@ -24,3 +25,4 @@
         padding:5px;
     }
 </style>
+</x-layouts::jobpilot>

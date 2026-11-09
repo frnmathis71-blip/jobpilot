@@ -1,3 +1,4 @@
+<x-layouts::jobpilot title="Candidats" heading="Candidats">
 {{-- ======================================== --}}
 {{-- UTILISATEUR CONNECTÉ --}}
 {{-- ======================================== --}}
@@ -84,3 +85,4 @@
 @endauth
 
  
+</x-layouts::jobpilot>

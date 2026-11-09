@@ -1,3 +1,4 @@
+<x-layouts::jobpilot title="Fiche entreprise" heading="Fiche entreprise">
 Nom de l'entreprise : {{$company->name}} <br>
 
 <section>
@@ -17,3 +18,4 @@ Les <a href="{{route('company.index')}}">Entreprise</a>
         padding:5px;
     }
 </style>
+</x-layouts::jobpilot>
