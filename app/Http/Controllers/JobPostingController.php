@@ -20,7 +20,7 @@ class JobPostingController extends Controller
      */
     public function create(Offer $offer )
     {
-        return view('jobposting.create', $offer);
+        return view('jobposting.create', compact('offer'));
     }
 
     /**
