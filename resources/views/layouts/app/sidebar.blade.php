@@ -1,40 +1,41 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
+    <body class="min-h-screen bg-[#f5f6f8]">
+        <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-white">
             <flux:sidebar.header>
                 <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
                 <flux:sidebar.collapse class="lg:hidden" />
             </flux:sidebar.header>
 
+            {{-- Menu JobPilot selon le rôle --}}
             <flux:sidebar.nav>
-                <flux:sidebar.group :heading="__('Platform')" class="grid">
-                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
+                <flux:sidebar.group :heading="__('JobPilot')" class="grid">
+                    <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')">
+                        {{ __('Tableau de bord') }}
                     </flux:sidebar.item>
+                    @if (in_array(auth()->user()->role, ['admin', 'candidat']))
+                        <flux:sidebar.item icon="users" :href="route('candidat.index')">{{ __('Candidats') }}</flux:sidebar.item>
+                    @endif
+                    @if (auth()->user()->role === 'admin')
+                        <flux:sidebar.item icon="building-office" :href="route('company.index')">{{ __('Entreprises') }}</flux:sidebar.item>
+                    @endif
+                    <flux:sidebar.item icon="briefcase" :href="route('offer.index')">{{ __('Offres') }}</flux:sidebar.item>
+                    @if (auth()->user()->role === 'company')
+                        <flux:sidebar.item icon="inbox" :href="route('jobposting.index')">{{ __('Candidatures') }}</flux:sidebar.item>
+                    @endif
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
             <flux:spacer />
 
-            <flux:sidebar.nav>
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
-                </flux:sidebar.item>
-
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
-                </flux:sidebar.item>
-            </flux:sidebar.nav>
-
             <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
         </flux:sidebar>
 
         <!-- Mobile User Menu -->
-        <flux:header class="lg:hidden">
+        <flux:header class="lg:hidden border-b border-zinc-200 bg-white">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
             <flux:spacer />
