@@ -1,3 +1,7 @@
+{{-- ICÔNE FLUX « book-open-text » (provenant de la bibliothèque Lucide). --}}
+{{-- Utilisation : icon="book-open-text" sur un composant Flux, ou <flux:icon.book-open-text />. --}}
+{{-- Fichier généré : à ne modifier que pour changer le dessin de l'icône. --}}
+
 {{-- Credit: Lucide (https://lucide.dev) --}}
 
 @props([

@@ -13,6 +13,8 @@ new class extends Component {
     /**
      * Delete the currently authenticated user.
      */
+    // Vérifie le mot de passe, déconnecte, supprime le compte
+    // puis redirige vers l'accueil
     public function deleteUser(Logout $logout): void
     {
         $this->validate([
@@ -25,7 +27,11 @@ new class extends Component {
     }
 }; ?>
 
+{{-- FENÊTRE DE CONFIRMATION DE SUPPRESSION DU COMPTE (composant Livewire). --}}
+{{-- L'utilisateur doit saisir son mot de passe pour confirmer. --}}
+
 <flux:modal name="confirm-user-deletion" :show="$errors->isNotEmpty()" focusable class="max-w-lg">
+    {{-- Formulaire : wire:submit appelle deleteUser() --}}
     <form method="POST" wire:submit="deleteUser" class="space-y-6">
         <div>
             <flux:heading size="lg">{{ __('Are you sure you want to delete your account?') }}</flux:heading>
@@ -35,8 +41,10 @@ new class extends Component {
             </flux:subheading>
         </div>
 
+        {{-- Mot de passe de confirmation --}}
         <flux:input wire:model="password" :label="__('Password')" type="password" viewable />
 
+        {{-- Boutons Annuler / Supprimer le compte --}}
         <div class="flex justify-end space-x-2 rtl:space-x-reverse">
             <flux:modal.close>
                 <flux:button variant="filled">{{ __('Cancel') }}</flux:button>

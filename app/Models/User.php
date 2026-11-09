@@ -28,6 +28,8 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
+// Champs remplissables en masse. "role" vaut 'candidat', 'company' ou 'admin'
+// et c'est lui que lisent les middlewares IsAdmin / IsCompany / IsCandidat.
 #[Fillable(['name', 'email', 'password', 'role', 'candidat_id', 'company_id',])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
@@ -60,11 +62,17 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
             : $initials;
     }
 
-        public function candidat()
+    /**
+     * Fiche candidat liée (si role = 'candidat'), via users.candidat_id.
+     */
+    public function candidat()
     {
         return $this->belongsTo(Candidat::class);
     }
 
+    /**
+     * Entreprise liée (si role = 'company'), via users.company_id.
+     */
     public function company()
     {
         return $this->belongsTo(Company::class);

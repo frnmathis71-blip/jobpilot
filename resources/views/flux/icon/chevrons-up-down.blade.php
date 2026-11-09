@@ -1,3 +1,7 @@
+{{-- ICÔNE FLUX « chevrons-up-down » (provenant de la bibliothèque Lucide). --}}
+{{-- Utilisation : icon="chevrons-up-down" sur un composant Flux, ou <flux:icon.chevrons-up-down />. --}}
+{{-- Fichier généré : à ne modifier que pour changer le dessin de l'icône. --}}
+
 {{-- Credit: Lucide (https://lucide.dev) --}}
 
 @props([

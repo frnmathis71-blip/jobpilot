@@ -7,10 +7,18 @@ use App\Models\Company;
 use App\Http\Requests\StoreOfferRequest;
 use App\Http\Requests\UpdateOfferRequest;
 
+/**
+ * Contrôleur des offres d'emploi (CRUD complet).
+ *
+ * Qui a accès à quoi (voir routes/web.php) :
+ *  - index, show                   → tout utilisateur connecté
+ *  - create, store, edit, update   → entreprises (middleware IsCompany)
+ *  - destroy                       → administrateurs (middleware IsAdmin)
+ */
 class OfferController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * GET /offer : liste de toutes les offres.
      */
     public function index()
     {
@@ -19,7 +27,8 @@ class OfferController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * GET /offer/create : formulaire de création d'une offre.
+     * On envoie la liste des entreprises pour remplir le menu déroulant.
      */
     public function create()
     {
@@ -28,10 +37,12 @@ class OfferController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * POST /offer : enregistre la nouvelle offre envoyée par le formulaire.
      */
     public function store(StoreOfferRequest $request)
     {
+        // Tous les champs sont obligatoires. Les noms (Salary, Name…)
+        // correspondent aux colonnes de la table offers et aux "name" du formulaire.
         $validated=$request->validate([
             'company_id'=>'required',
             'Salary'=>'required',
@@ -39,15 +50,19 @@ class OfferController extends Controller
             'Description'=>'required',
         ]);
 
+        // Création en base (seuls les champs de $fillable du modèle sont acceptés).
         Offer::create($validated);
 
+        // Retour à la liste avec un message flash.
         return redirect()
             ->route('offer.index')
             ->with('succes', 'Offre ajoutée avec succès');
     }
 
     /**
-     * Display the specified resource.
+     * GET /offer/{offer} : détail d'une offre.
+     * Laravel retrouve automatiquement l'offre grâce à l'id dans l'URL
+     * (route model binding) et renvoie 404 si elle n'existe pas.
      */
     public function show(Offer $offer)
     {
@@ -55,7 +70,7 @@ class OfferController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * GET /offer/{offer}/edit : formulaire de modification d'une offre.
      */
     public function edit(Offer $offer)
     {
@@ -64,7 +79,7 @@ class OfferController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * PUT /offer/{offer} : enregistre les modifications d'une offre.
      */
     public function update(UpdateOfferRequest $request, Offer $offer)
     {
@@ -83,7 +98,7 @@ class OfferController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * DELETE /offer/{offer} : supprime une offre (admin uniquement).
      */
     public function destroy(Offer $offer)
     {

@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Table des candidats.
+        // ⚠ Pas de colonne "fullname" pour l'instant, alors que le code l'utilise.
         Schema::create('candidats', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            // Offre à laquelle le candidat est rattaché (facultatif).
             $table->foreignId('offer_id')->nullable()->constrained('offers');
         });
     }

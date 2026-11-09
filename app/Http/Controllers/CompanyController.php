@@ -6,10 +6,16 @@ use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 
+/**
+ * Contrôleur des entreprises (CRUD complet).
+ *
+ * Toutes les routes sont réservées aux administrateurs
+ * (middleware IsAdmin dans routes/web.php).
+ */
 class CompanyController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * GET /company : liste de toutes les entreprises.
      */
     public function index()
     {
@@ -19,7 +25,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * GET /company/create : formulaire de création d'une entreprise.
      */
     public function create()
     {
@@ -27,10 +33,11 @@ class CompanyController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * POST /company : enregistre la nouvelle entreprise.
      */
     public function store(StoreCompanyRequest $request)
     {
+        // Le nom est obligatoire.
         $validated = $request->validate([
             'name' => 'required',
         ]);
@@ -43,7 +50,7 @@ class CompanyController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * GET /company/{company} : détail d'une entreprise et de ses offres.
      */
     public function show(Company $company)
     {
@@ -51,15 +58,15 @@ class CompanyController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * GET /company/{company}/edit : formulaire de modification.
      */
     public function edit(Company $company)
     {
-        return view('company.edit', compact('company'));   
+        return view('company.edit', compact('company'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * PUT /company/{company} : enregistre les modifications.
      */
     public function update(UpdateCompanyRequest $request, Company $company)
     {
@@ -75,12 +82,14 @@ class CompanyController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * DELETE /company/{company} : supprime l'entreprise.
+     * Ses offres et son compte utilisateur sont aussi supprimés
+     * (cascadeOnDelete dans les migrations).
      */
     public function destroy(Company $company)
     {
         $company->delete();
-        
+
         return redirect()
             ->route('company.index')
             ->with('succes', 'Entreprise supprimée avec succès');
