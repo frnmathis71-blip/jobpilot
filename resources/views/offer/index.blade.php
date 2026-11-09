@@ -1,3 +1,4 @@
+<x-layouts::jobpilot title="Offres" heading="Offres d'emploi">
 {{-- ======================================== --}}
 {{-- PARTIE ADMINISTRATEUR ET ENTREPRISE --}}
 {{-- ======================================== --}}
@@ -63,3 +64,4 @@
         }
     </style>
 @endif
+</x-layouts::jobpilot>

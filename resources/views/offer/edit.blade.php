@@ -1,3 +1,4 @@
+<x-layouts::jobpilot title="Modifier l'offre" heading="Modifier l'offre">
 <form action="{{route('offer.update', $offer)}}" method="POST">
     @csrf 
     @method('PUT')
@@ -15,3 +16,4 @@
     <label>Description</label> <input type="text" name="Description" value="{{$offer->Description}}"> <br>
     <button type="submit">Modifier</button>
 </form>
+</x-layouts::jobpilot>

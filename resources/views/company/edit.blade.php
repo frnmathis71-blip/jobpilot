@@ -1,3 +1,4 @@
+<x-layouts::jobpilot title="Modifier l'entreprise" heading="Modifier l'entreprise">
 <form action="{{route('company.update', $company)}}" method="POST">
     @csrf
     @method('PUT')
@@ -6,3 +7,4 @@
     <button type="submit">Modifier</button>
 
 </form>
+</x-layouts::jobpilot>
