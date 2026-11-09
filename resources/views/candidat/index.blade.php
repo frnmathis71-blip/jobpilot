@@ -58,7 +58,7 @@
         {{-- Liste des candidats --}}
         @foreach($candidats as $candidat)
             <section>
-                {{$candidat->fullname}} <br>
+                {{$candidat->user->name}} <br>
             </section>
         @endforeach
 

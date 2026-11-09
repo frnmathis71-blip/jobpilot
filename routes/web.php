@@ -31,6 +31,13 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
 
     Route::resource('offer', OfferController::class)
         ->only(['destroy']);
+    
+});
+
+Route::middleware(['auth', 'IsCandidat'])->group(function () {
+
+    Route::resource('jobposting', OfferController::class)
+        ->only(['create','store']);
 });
 
 // Consultation (lecture seule) : tout utilisateur connecté
@@ -41,6 +48,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('offer', OfferController::class)
         ->only(['index', 'show']);
+
 });
 
 require __DIR__.'/settings.php';
+
+
+

@@ -45,8 +45,8 @@
             Offre N°{{$offer->id}} {{$offer->name}} <br>
             Salaire : {{$offer->Salary}} <br>
             Description : {{$offer->Description}} <br>
-            Entreprise : {{$offer->company->name}} <br>
-            <a href="{{route('offer.show', $offer)}}">Voir</a>
+            Entreprise : {{$offer->company->user->name}} <br>
+            <a href="{{route('jobposting.create', $offer)}}">Postuler</a>
         </section>
         
     @endforeach

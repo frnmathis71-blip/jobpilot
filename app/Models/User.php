@@ -77,4 +77,10 @@ class User extends Authenticatable implements MustVerifyEmail, PasskeyUser
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function jobposting()
+    {
+        return $this->belongsToMany(Offer::class, 'job_postings')
+                ->withTimestamps();
+    }
 }

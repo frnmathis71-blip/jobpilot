@@ -24,6 +24,16 @@ class Offer extends Model
         return $this->belongsTo(Company::class, 'company_id');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'job_postings');
+    }
+
+    public function jobposting()
+    {
+        return $this->HasMany(JobPosting::class, 'user_id');
+    }
+
     // Champs autorisés pour Offer::create() et $offer->update().
     // Attention : les noms commencent par une majuscule, comme les colonnes.
     protected $fillable = [
