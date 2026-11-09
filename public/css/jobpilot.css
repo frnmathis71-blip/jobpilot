@@ -340,3 +340,148 @@ body.jp {
         padding: 16px;
     }
 }
+
+/* =========================================================
+   Accueil, tableau de bord et boutons génériques
+   ========================================================= */
+
+/* ---------- Boutons génériques ---------- */
+.jp .jp-btn {
+    display: inline-block;
+    padding: 8px 18px;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.jp .jp-btn:hover {
+    background: var(--accent-hover);
+}
+
+.jp .jp-btn-ghost {
+    background: transparent;
+    border-color: var(--border);
+    color: var(--text);
+}
+
+.jp .jp-btn-ghost:hover {
+    background: var(--bg);
+}
+
+.jp .jp-user-name {
+    color: var(--muted);
+    text-decoration: none;
+}
+
+.jp .jp-user-name:hover {
+    color: var(--text);
+}
+
+/* ---------- Bandeau d'accueil ---------- */
+.jp .jp-hero {
+    padding: 48px 0 40px;
+    max-width: 680px;
+}
+
+.jp .jp-hero h1 {
+    margin-bottom: 16px;
+    font-size: 36px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.jp .jp-hero p {
+    margin: 0 0 28px;
+    padding: 0;
+    background: none;
+    color: var(--muted);
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.jp .jp-hero .jp-btn {
+    margin-right: 8px;
+    padding: 10px 22px;
+    font-size: 15px;
+}
+
+/* ---------- Grille de cartes ---------- */
+.jp .jp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.jp .jp-card {
+    display: block;
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    text-decoration: none;
+}
+
+a.jp-card:hover {
+    border-color: var(--accent);
+}
+
+.jp .jp-card h2 {
+    margin: 0 0 8px;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.jp .jp-card p {
+    margin: 0;
+    padding: 0;
+    background: none;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.jp .jp-card .jp-card-tag {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* Cartes « Vous êtes candidat / entreprise » sur l'accueil */
+.jp .jp-card.is-candidat {
+    border-top: 3px solid #1d4ed8;
+}
+
+.jp .jp-card.is-company {
+    border-top: 3px solid #0f766e;
+}
+
+.jp .jp-card ul {
+    margin: 12px 0 0;
+    padding-left: 18px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+@media (max-width: 640px) {
+    .jp .jp-hero h1 {
+        font-size: 28px;
+    }
+}
+
+.jp .jp-card.is-candidat .jp-card-tag {
+    color: #1d4ed8;
+}
+
+.jp .jp-card.is-company .jp-card-tag {
+    color: #0f766e;
+}

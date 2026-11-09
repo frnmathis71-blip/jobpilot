@@ -51,11 +51,21 @@
                 </nav>
 
                 <div class="jp-user">
-                    <span>{{ auth()->user()->name }}</span>
+                    <a href="{{ route('profile.edit') }}" class="jp-user-name">{{ auth()->user()->name }}</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="jp-logout">Déconnexion</button>
                     </form>
+                </div>
+            @else
+                {{-- ======================================== --}}
+                {{-- VISITEUR NON CONNECTÉ --}}
+                {{-- ======================================== --}}
+                <div class="jp-user">
+                    <a href="{{ route('login') }}" class="jp-btn jp-btn-ghost">Connexion</a>
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="jp-btn">Créer un compte</a>
+                    @endif
                 </div>
             @endauth
         </div>
