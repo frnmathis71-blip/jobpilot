@@ -31,7 +31,7 @@ class Offer extends Model
 
     public function jobposting()
     {
-        return $this->HasMany(JobPosting::class, 'user_id');
+        return $this->hasMany(JobPosting::class, 'offer_id');
     }
 
     // Champs autorisés pour Offer::create() et $offer->update().

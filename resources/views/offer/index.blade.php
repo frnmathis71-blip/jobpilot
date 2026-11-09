@@ -40,6 +40,10 @@
 {{-- PARTIE CANDIDAT --}}
 {{-- ======================================== --}}
 @if (in_array(auth()->user()->role, ['candidat']))
+    @if (session('succes'))
+        <p>{{ session('succes') }}</p>
+    @endif
+
     @foreach($offers as $offer)
         <section>
             Offre N°{{$offer->id}} {{$offer->name}} <br>
