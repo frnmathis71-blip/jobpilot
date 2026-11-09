@@ -11,7 +11,6 @@ new class extends Component {
     /**
      * Mount the component.
      */
-    // Au chargement : lit les codes enregistrés
     public function mount(): void
     {
         $this->loadRecoveryCodes();
@@ -20,7 +19,6 @@ new class extends Component {
     /**
      * Generate new recovery codes for the user.
      */
-    // Génère une nouvelle série de codes (les anciens ne marchent plus)
     public function regenerateRecoveryCodes(GenerateNewRecoveryCodes $generateNewRecoveryCodes): void
     {
         $generateNewRecoveryCodes(auth()->user());
@@ -31,7 +29,6 @@ new class extends Component {
     /**
      * Load the recovery codes for the user.
      */
-    // Déchiffre les codes stockés en base pour les afficher
     private function loadRecoveryCodes(): void
     {
         $user = auth()->user();
@@ -48,15 +45,11 @@ new class extends Component {
     }
 }; ?>
 
-{{-- BLOC « CODES DE SECOURS » DE LA 2FA (dans Paramètres > Sécurité). --}}
-{{-- Permettent de se connecter si l'on perd son téléphone. Chaque code ne sert qu'une fois. --}}
-
 <div
     class="py-6 space-y-6 border shadow-sm rounded-xl border-zinc-200 dark:border-white/10"
     wire:cloak
     x-data="{ showRecoveryCodes: false }"
 >
-    {{-- Titre et explication --}}
     <div class="px-6 space-y-2">
         <div class="flex items-center gap-2">
             <flux:icon.lock-closed variant="outline" class="size-4"/>
@@ -68,7 +61,6 @@ new class extends Component {
     </div>
 
     <div class="px-6">
-        {{-- Boutons Afficher / Masquer / Régénérer les codes --}}
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <flux:button
                 x-show="!showRecoveryCodes"
@@ -114,12 +106,10 @@ new class extends Component {
             x-bind:aria-hidden="!showRecoveryCodes"
         >
             <div class="mt-3 space-y-3">
-                {{-- Erreur éventuelle de lecture des codes --}}
                 @error('recoveryCodes')
                     <flux:callout variant="danger" icon="x-circle" heading="{{$message}}"/>
                 @enderror
 
-                {{-- Liste des codes, un par ligne --}}
                 @if (filled($recoveryCodes))
                     <div
                         class="grid gap-1 p-4 font-mono text-sm rounded-lg bg-zinc-100 dark:bg-white/5"

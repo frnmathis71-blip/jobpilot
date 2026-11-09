@@ -1,6 +1,3 @@
-{{-- PAGE « MOT DE PASSE OUBLIÉ » (route /forgot-password). --}}
-{{-- L'utilisateur saisit son e-mail ; Fortify lui envoie un lien de réinitialisation. --}}
-
 <x-layouts::auth :title="__('Forgot password')">
     <div class="flex flex-col gap-6">
         <x-auth-header :title="__('Forgot password')" :description="__('Enter your email to receive a password reset link')" />
@@ -8,7 +5,6 @@
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
-        {{-- Formulaire envoyé vers password.email --}}
         <form method="POST" action="{{ route('password.email') }}" class="flex flex-col gap-6">
             @csrf
 
@@ -27,7 +23,6 @@
             </flux:button>
         </form>
 
-        {{-- Lien de retour vers la connexion --}}
         <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-400">
             <span>{{ __('Or, return to') }}</span>
             <flux:link :href="route('login')" wire:navigate>{{ __('log in') }}</flux:link>

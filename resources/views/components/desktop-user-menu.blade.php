@@ -1,8 +1,4 @@
-{{-- COMPOSANT <x-desktop-user-menu> : menu utilisateur en bas de la barre latérale. --}}
-{{-- Affiche le nom et les initiales de l'utilisateur connecté, avec un menu déroulant. --}}
-
 <flux:dropdown position="bottom" align="start">
-    {{-- Bouton qui ouvre le menu (avatar + nom) --}}
     <flux:sidebar.profile
         :name="auth()->user()->name"
         :initials="auth()->user()->initials()"
@@ -10,7 +6,6 @@
         data-test="sidebar-menu-button"
     />
 
-    {{-- Contenu du menu : nom et e-mail de l'utilisateur --}}
     <flux:menu>
         <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
             <flux:avatar
@@ -23,12 +18,10 @@
             </div>
         </div>
         <flux:menu.separator />
-        {{-- Actions : paramètres et déconnexion --}}
         <flux:menu.radio.group>
             <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
                 {{ __('Settings') }}
             </flux:menu.item>
-            {{-- Déconnexion : formulaire POST (avec @csrf) vers la route logout --}}
             <form method="POST" action="{{ route('logout') }}" class="w-full">
                 @csrf
                 <flux:menu.item

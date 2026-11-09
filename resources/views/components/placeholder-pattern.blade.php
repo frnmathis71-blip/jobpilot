@@ -1,7 +1,3 @@
-{{-- COMPOSANT <x-placeholder-pattern> : motif de hachures en SVG --}}
-{{-- utilisé comme fond provisoire (ex. cases vides du tableau de bord). --}}
-{{-- Un id unique (uniqid) évite les conflits si le motif apparaît plusieurs fois. --}}
-
 @props([
     'id' => uniqid(),
 ])

@@ -11,8 +11,6 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-// Partie PHP du composant : les propriétés publiques ($name, $email)
-// sont reliées aux champs du formulaire par wire:model.
 new #[Title('Profile settings')] class extends Component {
     use ProfileValidationRules;
 
@@ -22,7 +20,6 @@ new #[Title('Profile settings')] class extends Component {
     /**
      * Mount the component.
      */
-    // Au chargement : pré-remplit le formulaire avec les données actuelles
     public function mount(): void
     {
         $this->name = Auth::user()->name;
@@ -32,7 +29,6 @@ new #[Title('Profile settings')] class extends Component {
     /**
      * Update the profile information for the currently authenticated user.
      */
-    // À l'envoi : valide, enregistre ; si l'e-mail change, il doit être revérifié
     public function updateProfileInformation(): void
     {
         $user = Auth::user();
@@ -54,7 +50,6 @@ new #[Title('Profile settings')] class extends Component {
     /**
      * Send an email verification notification to the current user.
      */
-    // Renvoie l'e-mail de vérification
     public function resendVerificationNotification(): void
     {
         $user = Auth::user();
@@ -70,14 +65,12 @@ new #[Title('Profile settings')] class extends Component {
         Session::flash('status', 'verification-link-sent');
     }
 
-    // Vrai si l'e-mail n'est pas encore vérifié
     #[Computed]
     public function hasUnverifiedEmail(): bool
     {
         return Auth::user() instanceof MustVerifyEmail && ! Auth::user()->hasVerifiedEmail();
     }
 
-    // Vrai si l'on peut afficher la suppression du compte (e-mail vérifié)
     #[Computed]
     public function showDeleteUser(): bool
     {
@@ -87,16 +80,12 @@ new #[Title('Profile settings')] class extends Component {
     /* @end-chisel-email-verification */
 }; ?>
 
-{{-- PAGE PARAMÈTRES > PROFIL (composant Livewire). --}}
-{{-- Modification du nom et de l'e-mail, et accès à la suppression du compte. --}}
-
 <section class="w-full">
     @include('partials.settings-heading')
 
     <flux:heading level="2" class="sr-only">{{ __('Profile settings') }}</flux:heading>
 
     <x-pages::settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
-        {{-- Formulaire : wire:submit appelle updateProfileInformation() sans recharger la page --}}
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
             <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
 
@@ -104,7 +93,6 @@ new #[Title('Profile settings')] class extends Component {
                 <flux:input wire:model="email" :label="__('Email')" type="email" required autocomplete="email" />
 
                 {{-- @chisel-email-verification --}}
-                {{-- Avertissement si l'e-mail n'est pas vérifié + lien pour renvoyer l'e-mail --}}
                 @if ($this->hasUnverifiedEmail)
                     <div>
                         <flux:text class="mt-4">
@@ -138,7 +126,6 @@ new #[Title('Profile settings')] class extends Component {
         {{-- @chisel-email-verification --}}
         @if ($this->showDeleteUser)
         {{-- @end-chisel-email-verification --}}
-            {{-- Bloc « Supprimer le compte » --}}
             <livewire:pages::settings.delete-user-form />
         {{-- @chisel-email-verification --}}
         @endif

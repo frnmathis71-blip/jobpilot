@@ -1,14 +1,7 @@
-{{-- COMPOSANT <x-passkey-registration> : ajout d'une nouvelle passkey --}}
-{{-- (utilisé dans Paramètres > Sécurité). --}}
-
-{{-- Charge le script JavaScript des passkeys --}}
 @assets
 @vite('resources/js/passkeys.js')
 @endassets
 
-{{-- Logique Alpine.js (x-data) : --}}
-{{-- - getDefaultPasskeyName() propose un nom du type « Chrome on Windows » --}}
-{{-- - register() enregistre la passkey puis recharge la liste ($wire.loadPasskeys) --}}
 <div
     x-data="{
         supported: false,
@@ -72,12 +65,10 @@
         },
     }"
 >
-    {{-- Cas 1 : navigateur incompatible --}}
     <template x-if="!supported">
         <flux:text>{{ __('Passkeys are not supported in this browser.') }}</flux:text>
     </template>
 
-    {{-- Cas 2 : bouton « Ajouter une passkey » --}}
     <template x-if="supported && !showForm">
         <div>
             <flux:button
@@ -90,7 +81,6 @@
         </div>
     </template>
 
-    {{-- Cas 3 : formulaire pour nommer puis enregistrer la passkey --}}
     <template x-if="supported && showForm">
         <div class="space-y-4 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 p-4">
             <flux:input
