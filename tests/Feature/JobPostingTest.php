@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Candidat;
 use App\Models\Company;
+use App\Models\JobPosting;
 use App\Models\Offer;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -78,6 +79,37 @@ class JobPostingTest extends TestCase
 
         $this->actingAs($company)
             ->post(route('jobposting.store'), ['offer_id' => $offer->id])
+            ->assertForbidden();
+    }
+
+    public function test_company_sees_applicants_for_its_offers_only(): void
+    {
+        $offer = $this->makeOffer();
+        $company = User::where('role', 'company')->first();
+
+        $otherOffer = $this->makeOffer();
+        $otherOffer->update(['Name' => 'Offre concurrente']);
+
+        $alice = $this->makeCandidat();
+        $alice->update(['name' => 'Alice Martin']);
+        $bob = $this->makeCandidat();
+        $bob->update(['name' => 'Bob Durand']);
+
+        JobPosting::create(['offer_id' => $offer->id, 'user_id' => $alice->id]);
+        JobPosting::create(['offer_id' => $otherOffer->id, 'user_id' => $bob->id]);
+
+        $this->actingAs($company)
+            ->get(route('jobposting.index'))
+            ->assertOk()
+            ->assertSee('Alice Martin')
+            ->assertDontSee('Bob Durand')
+            ->assertDontSee('Offre concurrente');
+    }
+
+    public function test_candidat_cannot_see_the_applications_list(): void
+    {
+        $this->actingAs($this->makeCandidat())
+            ->get(route('jobposting.index'))
             ->assertForbidden();
     }
 }

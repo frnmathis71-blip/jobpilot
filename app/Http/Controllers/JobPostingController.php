@@ -13,7 +13,12 @@ class JobPostingController extends Controller
      */
     public function index()
     {
-        //
+        // Offres de l'entreprise connectée, avec leurs candidatures et les candidats
+        $offers = Offer::where('company_id', auth()->user()->company_id)
+            ->with('jobposting.users')
+            ->get();
+
+        return view('jobposting.index', compact('offers'));
     }
 
     /**

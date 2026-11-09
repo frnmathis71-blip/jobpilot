@@ -20,6 +20,10 @@ Route::middleware(['auth', 'IsCompany'])->group(function () {
 
     Route::resource('offer', OfferController::class)
         ->only(['create', 'store', 'edit', 'update']);
+
+    // Candidatures reçues sur les offres de l'entreprise
+    Route::resource('jobposting', JobPostingController::class)
+        ->only(['index']);
 });
 
 // Administration : gérer les candidats, les entreprises, supprimer des offres
