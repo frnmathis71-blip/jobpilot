@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CandidatController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\JobPostingController;
 
 Route::view('/', 'welcome')->name('home');
 Route::view('/dashboard', 'dashboard')->name('dashboard');
@@ -36,7 +37,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
 
 Route::middleware(['auth', 'IsCandidat'])->group(function () {
 
-    Route::resource('jobposting', OfferController::class)
+    Route::resource('jobposting', JobPostingController::class)
         ->only(['create','store']);
 });
 
