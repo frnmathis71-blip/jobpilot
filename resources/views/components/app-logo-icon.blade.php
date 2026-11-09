@@ -1,3 +1,6 @@
+{{-- COMPOSANT <x-app-logo-icon> : l'icône du logo en SVG. --}}
+{{-- {{ $attributes }} transmet les classes passées au composant (taille, couleur...). --}}
+
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 42" {{ $attributes }}>
     <path 
         fill="currentColor" 

@@ -1,3 +1,7 @@
+{{-- ICÔNE FLUX « layout-grid » (provenant de la bibliothèque Lucide). --}}
+{{-- Utilisation : icon="layout-grid" sur un composant Flux, ou <flux:icon.layout-grid />. --}}
+{{-- Fichier généré : à ne modifier que pour changer le dessin de l'icône. --}}
+
 {{-- Credit: Lucide (https://lucide.dev) --}}
 
 @props([

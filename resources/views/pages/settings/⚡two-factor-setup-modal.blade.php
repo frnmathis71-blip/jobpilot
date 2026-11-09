@@ -8,6 +8,7 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
+// Partie PHP du composant : état de la fenêtre et actions
 new class extends Component {
     #[Locked]
     public bool $requiresConfirmation;
@@ -28,12 +29,14 @@ new class extends Component {
     /**
      * Mount the component.
      */
+    // Au chargement : la confirmation par code est-elle exigée ?
     public function mount(bool $requiresConfirmation): void
     {
         $this->requiresConfirmation = $requiresConfirmation;
     }
 
     #[On('start-two-factor-setup')]
+    // Active la 2FA et génère le QR code et la clé
     public function startTwoFactorSetup(): void
     {
         $enableTwoFactorAuthentication = app(EnableTwoFactorAuthentication::class);
@@ -45,6 +48,7 @@ new class extends Component {
     /**
      * Load the two-factor authentication setup data for the user.
      */
+    // Récupère le QR code (SVG) et la clé de configuration manuelle
     private function loadSetupData(): void
     {
         $user = auth()->user()?->fresh();
@@ -66,6 +70,7 @@ new class extends Component {
     /**
      * Show the two-factor verification step if necessary.
      */
+    // Passe à l'étape 2, ou termine si la confirmation n'est pas exigée
     public function showVerificationIfNecessary(): void
     {
         if ($this->requiresConfirmation) {
@@ -83,6 +88,7 @@ new class extends Component {
     /**
      * Confirm two-factor authentication for the user.
      */
+    // Vérifie le code à 6 chiffres saisi
     public function confirmTwoFactor(ConfirmTwoFactorAuthentication $confirmTwoFactorAuthentication): void
     {
         $this->validate();
@@ -99,6 +105,7 @@ new class extends Component {
     /**
      * Reset two-factor verification state.
      */
+    // Retour à l'étape 1
     public function resetVerification(): void
     {
         $this->reset('code', 'showVerificationStep');
@@ -109,6 +116,7 @@ new class extends Component {
     /**
      * Close the two-factor authentication modal.
      */
+    // Ferme la fenêtre et réinitialise son état
     public function closeModal(): void
     {
         $this->reset(
@@ -126,6 +134,7 @@ new class extends Component {
      * Get the current modal configuration state.
      */
     #[Computed]
+    // Titre, description et texte du bouton selon l'étape en cours
     public function modalConfig(): array
     {
         if ($this->setupComplete) {
@@ -152,6 +161,11 @@ new class extends Component {
     }
 }; ?>
 
+{{-- FENÊTRE D'ACTIVATION DE LA DOUBLE AUTHENTIFICATION (composant Livewire). --}}
+{{-- Étape 1 : scanner le QR code (ou saisir la clé) dans une application d'authentification. --}}
+{{-- Étape 2 (si requiresConfirmation) : saisir le code à 6 chiffres pour confirmer. --}}
+
+{{-- La fenêtre (modale) --}}
 <flux:modal
     name="two-factor-setup-modal"
     class="max-w-md md:min-w-md"
@@ -183,6 +197,7 @@ new class extends Component {
                 </div>
             </div>
 
+            {{-- ÉTAPE 2 : saisie du code de vérification --}}
             @if ($showVerificationStep)
                 <div class="space-y-6">
                     <div
@@ -219,6 +234,7 @@ new class extends Component {
                         </flux:button>
                     </div>
                 </div>
+            {{-- ÉTAPE 1 : QR code + clé de configuration manuelle --}}
             @else
                 @error('setupData')
                     <flux:callout variant="danger" icon="x-circle" heading="{{ $message }}"/>

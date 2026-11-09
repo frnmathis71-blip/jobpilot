@@ -3,9 +3,14 @@
 use Livewire\Component;
 use Livewire\Attributes\Title;
 
+// Composant vide : #[Title] définit seulement le titre de l'onglet
 new #[Title('Appearance settings')] class extends Component {
     //
 }; ?>
+
+{{-- PAGE PARAMÈTRES > APPARENCE (composant Livewire). --}}
+{{-- Choix du thème clair, sombre ou celui du système. Tout se passe dans le --}}
+{{-- navigateur (x-model="$flux.appearance"), sans appel au serveur. --}}
 
 <section class="w-full">
     @include('partials.settings-heading')

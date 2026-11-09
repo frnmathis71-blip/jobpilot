@@ -1,3 +1,7 @@
+{{-- PAGE DE DOUBLE AUTHENTIFICATION (2FA), affichée après le mot de passe --}}
+{{-- si l'utilisateur a activé la 2FA. --}}
+{{-- Deux modes : code à 6 chiffres de l'application, ou code de secours. --}}
+
 <x-layouts::auth :title="__('Two-factor authentication')">
     <div class="flex flex-col gap-6">
         <div
@@ -29,6 +33,7 @@
                 },
             }"
         >
+            {{-- Titre en mode « code de l'application » --}}
             <div x-show="!showRecoveryInput">
                 <x-auth-header
                     :title="__('Authentication code')"
@@ -36,6 +41,7 @@
                 />
             </div>
 
+            {{-- Titre en mode « code de secours » --}}
             <div x-show="showRecoveryInput">
                 <x-auth-header
                     :title="__('Recovery code')"
@@ -43,10 +49,12 @@
                 />
             </div>
 
+            {{-- Formulaire envoyé vers two-factor.login.store --}}
             <form method="POST" action="{{ route('two-factor.login.store') }}">
                 @csrf
 
                 <div class="space-y-5 text-center">
+                    {{-- Saisie du code à 6 chiffres --}}
                     <div x-show="!showRecoveryInput">
                         <div class="flex items-center justify-center my-5" x-ref="otp">
                             <flux:otp
@@ -60,6 +68,7 @@
                         </div>
                     </div>
 
+                    {{-- Saisie d'un code de secours + message d'erreur éventuel --}}
                     <div x-show="showRecoveryInput">
                         <div class="my-5">
                             <flux:input
@@ -88,6 +97,7 @@
                     </flux:button>
                 </div>
 
+                {{-- Lien pour basculer entre les deux modes --}}
                 <div class="mt-5 space-x-0.5 text-sm leading-5 text-center">
                     <span class="opacity-50">{{ __('or you can') }}</span>
                     <div class="inline font-medium underline cursor-pointer opacity-80">
