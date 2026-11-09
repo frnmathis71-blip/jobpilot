@@ -1,3 +1,8 @@
+{{-- Liste des offres. L'affichage dépend du rôle de l'utilisateur connecté. --}}
+
+{{-- Admin et entreprise : liste + boutons Voir / Supprimer / Modifier / Ajouter --}}
+{{-- ⚠ Supprimer est réservé à l'admin, Modifier/Ajouter aux entreprises : --}}
+{{--   l'autre rôle obtiendra une erreur 403 en cliquant. --}}
 @if (in_array(auth()->user()->role, ['admin', 'company']))
     @foreach($offers as $offer)
         <section>
@@ -8,6 +13,7 @@
             <a href="{{route('offer.show', $offer)}}">Voir</a>
         
 
+            {{-- Suppression : formulaire DELETE avec confirmation --}}
             <form action="{{ route('offer.destroy', $offer) }}" method="POST">
                 @csrf
                 @method('DELETE')
@@ -33,6 +39,7 @@
     </style>
 @endif
 
+{{-- Candidat : liste en lecture seule --}}
 @if (in_array(auth()->user()->role, ['candidat']))
     @foreach($offers as $offer)
         <section>

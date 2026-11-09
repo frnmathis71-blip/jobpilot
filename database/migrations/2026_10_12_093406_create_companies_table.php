@@ -11,6 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Table des entreprises.
+        // ⚠ Pas de colonne "name" pour l'instant, alors que le code l'utilise.
         Schema::create('companies', function (Blueprint $table) {
             $table->id();
             $table->timestamps();

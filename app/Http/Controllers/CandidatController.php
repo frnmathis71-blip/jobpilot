@@ -6,10 +6,17 @@ use App\Models\Candidat;
 use App\Http\Requests\StoreCandidatRequest;
 use App\Http\Requests\UpdateCandidatRequest;
 
+/**
+ * Contrôleur des candidats (CRUD complet).
+ *
+ * Qui a accès à quoi (voir routes/web.php) :
+ *  - index, show                                → tout utilisateur connecté
+ *  - create, store, edit, update, destroy       → administrateurs (IsAdmin)
+ */
 class CandidatController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * GET /candidat : liste de tous les candidats.
      */
     public function index()
     {
@@ -18,7 +25,7 @@ class CandidatController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * GET /candidat/create : formulaire de création d'un candidat.
      */
     public function create()
     {
@@ -26,10 +33,11 @@ class CandidatController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * POST /candidat : enregistre le nouveau candidat.
      */
     public function store(StoreCandidatRequest $request)
     {
+        // Le nom complet est obligatoire.
         $validated = $request->validate([
             'fullname' => 'required',
         ]);
@@ -42,7 +50,7 @@ class CandidatController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * GET /candidat/{candidat} : détail d'un candidat.
      */
     public function show(Candidat $candidat)
     {
@@ -50,7 +58,7 @@ class CandidatController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * GET /candidat/{candidat}/edit : formulaire de modification.
      */
     public function edit(Candidat $candidat)
     {
@@ -58,7 +66,7 @@ class CandidatController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * PUT /candidat/{candidat} : enregistre les modifications.
      */
     public function update(UpdateCandidatRequest $request, Candidat $candidat)
     {
@@ -74,7 +82,8 @@ class CandidatController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * DELETE /candidat/{candidat} : supprime le candidat
+     * (et son compte utilisateur, via cascadeOnDelete).
      */
     public function destroy(Candidat $candidat)
     {

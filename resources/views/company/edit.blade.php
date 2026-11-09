@@ -1,3 +1,4 @@
+{{-- Formulaire de modification d'une entreprise (admin), pré-rempli avec son nom. --}}
 <form action="{{route('company.update', $company)}}" method="POST">
     @csrf
     @method('PUT')

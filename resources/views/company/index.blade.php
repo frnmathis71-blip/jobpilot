@@ -1,3 +1,4 @@
+{{-- Liste des entreprises (admin uniquement) avec Voir / Supprimer / Modifier. --}}
 @foreach($companies as $company)
 <section>
     {{$company->name}} <br>

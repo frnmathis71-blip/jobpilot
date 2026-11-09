@@ -1,3 +1,4 @@
+{{-- Détail d'une entreprise et liste de ses offres ($company->offers). --}}
 Nom de l'entreprise : {{$company->name}} <br>
 
 <section>

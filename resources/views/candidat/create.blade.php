@@ -1,3 +1,4 @@
+{{-- Formulaire de création d'un candidat (admin). Envoyé vers CandidatController@store. --}}
 <form action="{{route('candidat.store')}}" method="POST">
     @csrf
 

@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            // Lien vers l'entreprise (rempli seulement si role = 'company').
             $table->foreignId('company_id')->nullable()->constrained('companies')->cascadeOnDelete();
+            // Lien vers le candidat (rempli seulement si role = 'candidat').
             $table->foreignId('candidat_id')->nullable()->constrained('candidats')->cascadeOnDelete();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            // Rôle de l'utilisateur, lu par les middlewares IsAdmin / IsCompany / IsCandidat.
             $table->enum('role',['candidat', 'company', 'admin'])->default('candidat');
             $table->rememberToken();
             $table->timestamps();

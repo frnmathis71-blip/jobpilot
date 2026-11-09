@@ -1,3 +1,4 @@
+{{-- Formulaire de modification d'un candidat (admin), pré-rempli avec son nom. --}}
 <form action="{{route('candidat.update', $candidat)}}" method="POST">
     @csrf
     @method('PUT')

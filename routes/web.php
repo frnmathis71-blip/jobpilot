@@ -14,14 +14,14 @@ Route::view('/dashboard', 'dashboard')->name('dashboard');
 // AVANT les routes paramétrées (/offer/{offer}, /candidat/{candidat}),
 // sinon "create" est interprété comme un identifiant et la page renvoie 404.
 
-// Entreprises
+// Entreprises : créer et modifier des offres
 Route::middleware(['auth', 'IsCompany'])->group(function () {
 
     Route::resource('offer', OfferController::class)
         ->only(['create', 'store', 'edit', 'update']);
 });
 
-// Administration
+// Administration : gérer les candidats, les entreprises, supprimer des offres
 Route::middleware(['auth', 'IsAdmin'])->group(function () {
 
     Route::resource('candidat', CandidatController::class)
@@ -33,7 +33,7 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
         ->only(['destroy']);
 });
 
-// Consultation : tout utilisateur connecté
+// Consultation (lecture seule) : tout utilisateur connecté
 Route::middleware(['auth'])->group(function () {
 
     Route::resource('candidat', CandidatController::class)
