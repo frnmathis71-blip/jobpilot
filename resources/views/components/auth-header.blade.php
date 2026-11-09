@@ -1,7 +1,3 @@
-{{-- COMPOSANT <x-auth-header> : titre + sous-titre des pages d'authentification. --}}
-{{-- Exemple : <x-auth-header :title="__('Log in')" :description="..." /> --}}
-
-{{-- Paramètres attendus par le composant --}}
 @props([
     'title',
     'description',

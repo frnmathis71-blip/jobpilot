@@ -1,7 +1,3 @@
-{{-- PAGE DE CONFIRMATION DU MOT DE PASSE. --}}
-{{-- Demandée avant d'accéder à une zone sensible (ex. Paramètres > Sécurité), --}}
-{{-- via le middleware password.confirm. --}}
-
 <x-layouts::auth :title="__('Confirm password')">
     <div class="flex flex-col gap-6">
         <x-auth-header
@@ -12,7 +8,6 @@
         <x-auth-session-status class="text-center" :status="session('status')" />
 
         {{-- @chisel-passkeys --}}
-        {{-- Confirmation possible avec une passkey --}}
         <x-passkey-verify
             options-route="passkey.confirm-options"
             submit-route="passkey.confirm"
@@ -22,7 +17,6 @@
         />
         {{-- @end-chisel-passkeys --}}
 
-        {{-- Ou confirmation avec le mot de passe actuel --}}
         <form method="POST" action="{{ route('password.confirm.store') }}" class="flex flex-col gap-6">
             @csrf
 

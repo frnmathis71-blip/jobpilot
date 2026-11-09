@@ -1,8 +1,3 @@
-{{-- SURCHARGE DU COMPOSANT FLUX <flux:navlist.group> : groupe de liens dans un menu. --}}
-{{-- - expandable + heading : groupe repliable (titre cliquable avec une flèche) --}}
-{{-- - heading seul         : groupe avec un titre fixe --}}
-{{-- - sinon                : simple liste de liens --}}
-
 @props([
     'expandable' => false,
     'expanded' => true,

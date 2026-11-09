@@ -1,7 +1,3 @@
-{{-- ICÔNE FLUX « folder-git-2 » (provenant de la bibliothèque Lucide). --}}
-{{-- Utilisation : icon="folder-git-2" sur un composant Flux, ou <flux:icon.folder-git-2 />. --}}
-{{-- Fichier généré : à ne modifier que pour changer le dessin de l'icône. --}}
-
 {{-- Credit: Lucide (https://lucide.dev) --}}
 
 @props([

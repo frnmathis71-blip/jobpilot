@@ -17,17 +17,14 @@ use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 /* @end-chisel-2fa */
 
-// Partie PHP du composant (données et actions de la page)
 new #[Title('Security settings')] class extends Component {
     use PasswordValidationRules;
 
-    // Champs du formulaire de changement de mot de passe
     public string $current_password = '';
     public string $password = '';
     public string $password_confirmation = '';
 
     /* @chisel-2fa */
-    // État de la double authentification
     public bool $canManageTwoFactor;
 
     public bool $twoFactorEnabled;
@@ -36,7 +33,6 @@ new #[Title('Security settings')] class extends Component {
     /* @end-chisel-2fa */
 
     /* @chisel-passkeys */
-    // Données des passkeys (#[Locked] = non modifiables depuis le navigateur)
     #[Locked]
     public bool $canManagePasskeys;
 
@@ -55,7 +51,6 @@ new #[Title('Security settings')] class extends Component {
     /**
      * Mount the component.
      */
-    // Au chargement : lit l'état de la 2FA et la liste des passkeys
     public function mount(DisableTwoFactorAuthentication $disableTwoFactorAuthentication): void
     {
         /* @chisel-2fa */
@@ -83,7 +78,6 @@ new #[Title('Security settings')] class extends Component {
     /**
      * Update the password for the currently authenticated user.
      */
-    // Change le mot de passe après vérification de l'ancien
     public function updatePassword(): void
     {
         try {
@@ -110,7 +104,6 @@ new #[Title('Security settings')] class extends Component {
     /**
      * Load the user's passkeys.
      */
-    // Charge les passkeys de l'utilisateur pour les afficher
     public function loadPasskeys(): void
     {
         $this->passkeys = auth()->user()->passkeys()
@@ -130,7 +123,6 @@ new #[Title('Security settings')] class extends Component {
     /**
      * Show the delete confirmation modal.
      */
-    // Ouvre la fenêtre de confirmation de suppression d'une passkey
     public function confirmDelete(int $passkeyId): void
     {
         $passkey = auth()->user()->passkeys()->findOrFail($passkeyId);
@@ -143,7 +135,6 @@ new #[Title('Security settings')] class extends Component {
     /**
      * Delete the passkey.
      */
-    // Supprime la passkey choisie
     public function deletePasskey(DeletePasskey $deletePasskey): void
     {
         if (! $this->deletingPasskeyId) {
@@ -161,7 +152,6 @@ new #[Title('Security settings')] class extends Component {
     /**
      * Close the delete confirmation modal.
      */
-    // Ferme la fenêtre de confirmation
     public function closeDeleteModal(): void
     {
         $this->showDeleteModal = false;
@@ -174,7 +164,6 @@ new #[Title('Security settings')] class extends Component {
     /**
      * Handle the two-factor authentication enabled event.
      */
-    // Appelé quand la fenêtre d'activation de la 2FA a terminé
     #[On('two-factor-enabled')]
     public function onTwoFactorEnabled(): void
     {
@@ -184,7 +173,6 @@ new #[Title('Security settings')] class extends Component {
     /**
      * Disable two-factor authentication for the user.
      */
-    // Désactive la 2FA
     public function disable(DisableTwoFactorAuthentication $disableTwoFactorAuthentication): void
     {
         $disableTwoFactorAuthentication(auth()->user());
@@ -194,17 +182,12 @@ new #[Title('Security settings')] class extends Component {
     /* @end-chisel-2fa */
 }; ?>
 
-{{-- PAGE PARAMÈTRES > SÉCURITÉ (composant Livewire). --}}
-{{-- Trois blocs : changement du mot de passe, double authentification (2FA), passkeys. --}}
-{{-- Protégée par password.confirm : il faut retaper son mot de passe pour y accéder. --}}
-
 <section class="w-full">
     @include('partials.settings-heading')
 
     <flux:heading level="2" class="sr-only">{{ __('Security settings') }}</flux:heading>
 
     <x-pages::settings.layout :heading="__('Update password')" :subheading="__('Ensure your account is using a long, random password to stay secure')">
-        {{-- BLOC 1 : changement du mot de passe --}}
         <form method="POST" wire:submit="updatePassword" class="mt-6 space-y-6">
             <flux:input
                 wire:model="current_password"
@@ -241,14 +224,12 @@ new #[Title('Security settings')] class extends Component {
         </form>
 
         {{-- @chisel-2fa --}}
-        {{-- BLOC 2 : double authentification (2FA) --}}
         @if ($canManageTwoFactor)
             <section class="mt-12">
                 <flux:heading>{{ __('Two-factor authentication') }}</flux:heading>
                 <flux:subheading>{{ __('Manage your two-factor authentication settings') }}</flux:subheading>
 
                 <div class="flex flex-col w-full mx-auto space-y-6 text-sm" wire:cloak>
-                    {{-- 2FA activée : bouton pour la désactiver + codes de secours --}}
                     @if ($twoFactorEnabled)
                         <div class="space-y-4">
                             <flux:text>
@@ -266,7 +247,6 @@ new #[Title('Security settings')] class extends Component {
 
                             <livewire:pages::settings.two-factor.recovery-codes :$requiresConfirmation />
                         </div>
-                    {{-- 2FA désactivée : bouton qui ouvre la fenêtre d'activation --}}
                     @else
                         <div class="space-y-4">
                             <flux:text variant="subtle">
@@ -291,7 +271,6 @@ new #[Title('Security settings')] class extends Component {
         {{-- @end-chisel-2fa --}}
 
         {{-- @chisel-passkeys --}}
-        {{-- BLOC 3 : passkeys --}}
         @if ($canManagePasskeys)
             <section class="mt-12">
                 <flux:heading>{{ __('Passkeys') }}</flux:heading>
@@ -299,7 +278,6 @@ new #[Title('Security settings')] class extends Component {
 
                 <div class="mt-6 flex flex-col w-full mx-auto space-y-6 text-sm" wire:cloak>
                     <div class="border rounded-lg border-zinc-200 dark:border-zinc-700 overflow-hidden">
-                        {{-- Une ligne par passkey (nom, date d'ajout, dernière utilisation, bouton supprimer) --}}
                         @forelse ($passkeys as $passkey)
                             <div class="flex items-center justify-between p-4 {{ ! $loop->last ? 'border-b border-zinc-200 dark:border-zinc-700' : '' }}">
                                 <div class="flex items-center gap-4">
@@ -332,7 +310,6 @@ new #[Title('Security settings')] class extends Component {
                                     class="text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/50"
                                 />
                             </div>
-                        {{-- Message si aucune passkey --}}
                         @empty
                             <div class="p-8 text-center">
                                 <div class="mx-auto mb-4 flex size-14 items-center justify-center rounded-2xl bg-zinc-100 dark:bg-zinc-800">
@@ -344,7 +321,6 @@ new #[Title('Security settings')] class extends Component {
                         @endforelse
                     </div>
 
-                    {{-- Bouton et formulaire d'ajout d'une passkey --}}
                     <x-passkey-registration />
                 </div>
             </section>
@@ -353,7 +329,6 @@ new #[Title('Security settings')] class extends Component {
     </x-pages::settings.layout>
 
     {{-- @chisel-passkeys --}}
-    {{-- Fenêtre de confirmation de suppression d'une passkey --}}
     <flux:modal
         name="delete-passkey-modal"
         class="max-w-md md:min-w-md"
