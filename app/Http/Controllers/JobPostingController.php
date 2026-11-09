@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Offer;
+use App\Models\JobPosting;
 
 class JobPostingController extends Controller
 {
@@ -28,7 +29,20 @@ class JobPostingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // L'offre doit exister dans la table offers
+        $validated = $request->validate([
+            'offer_id' => 'required|exists:offers,id',
+        ]);
+
+        // Enregistre la candidature (pas de doublon si le candidat a déjà postulé)
+        JobPosting::firstOrCreate([
+            'offer_id' => $validated['offer_id'],
+            'user_id' => auth()->id(),
+        ]);
+
+        return redirect()
+            ->route('offer.index')
+            ->with('succes', 'Candidature envoyée avec succès');
     }
 
     /**
