@@ -37,8 +37,12 @@ Route::middleware(['auth', 'IsAdmin'])->group(function () {
 
 Route::middleware(['auth', 'IsCandidat'])->group(function () {
 
+    // Formulaire de candidature : l'offre visée est dans l'URL (/offer/3/jobposting/create)
+    Route::get('/offer/{offer}/jobposting/create', [JobPostingController::class, 'create'])
+        ->name('jobposting.create');
+
     Route::resource('jobposting', JobPostingController::class)
-        ->only(['create','store']);
+        ->only(['store']);
 });
 
 // Consultation (lecture seule) : tout utilisateur connecté
